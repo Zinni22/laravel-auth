@@ -9,6 +9,10 @@
         </div>
     </div>
 
+    <a href="{{ route('admin.create') }}" class="btn btn-success">
+      Inserisci un nuovo progetto
+    </a>
+
     <table class="table">
         <thead>
           <tr>
@@ -25,8 +29,26 @@
                 <td>{{ $project->slug }}</td>
                 <td>{{ $project->description }}</td>
                 <td>{{ $project->link }}</td>
+
+                <td>
+                  <div>
+                    <a href="{{ route('admin.show', $project->id) }}" class="btn btn-primary">
+                      Visualizza
+                    </a>
+
+                    <a href="{{ route('admin.edit', $project->id) }}" class="btn btn-warning">
+                      Aggiorna
+                    </a>
+
+                    <a href="#" class="btn btn-danger">
+                      Elimina
+                    </a>
+                  </div>
+                </td>
             </tr>
             @endforeach
+
+            
           
         </tbody>
       </table>
