@@ -5,21 +5,23 @@
       <div class="row justify-content-center mb-4">
             <div class="col">
 
-                @if (session('success'))
-                    <div class="alert alert-success mb-3">
-                        {{ session('success') }}
-                    </div>
-                 @endif
+                @include('partials.success')
 
                   <h1>{{ $project->title }}</h1>
                   
-                  <h5>Slug: {{ $project->slug }}</h5>
+                  <p><strong>Slug:</strong> 
+                        {{ $project->slug }}
+                  </p>
 
-                  <p>{{ $project->description }}</p>
+                  <p><strong>Descrizione:</strong> 
+                        {{ $project->description }}
+                  </p>
 
-                  <p>{{ $project->link }}</p>
+                  <p><strong>Link:</strong> 
+                        {{ $project->link }}
+                  </p>
 
-                  <a href="{{ route('admin.index') }}" class="btn btn-primary">
+                  <a href="{{ route('admin.project.index') }}" class="btn btn-primary">
                         Torna indietro
                   </a>
             </div>

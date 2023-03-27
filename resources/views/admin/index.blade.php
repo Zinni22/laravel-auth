@@ -3,13 +3,16 @@
 @section('content')
 
 <div class="container">
+
+  @include('partials.success')
+
     <div class="row">
         <div class="col">
             <h1>Tutti i progetti</h1>
         </div>
     </div>
 
-    <a href="{{ route('admin.create') }}" class="btn btn-success">
+    <a href="{{ route('admin.project.create') }}" class="btn btn-success">
       Inserisci un nuovo progetto
     </a>
 
@@ -32,17 +35,27 @@
 
                 <td>
                   <div>
-                    <a href="{{ route('admin.show', $project->id) }}" class="btn btn-primary">
+
+                    <a href="{{ route('admin.project.show', $project->id) }}" class="btn btn-primary">
                       Visualizza
                     </a>
 
-                    <a href="{{ route('admin.edit', $project->id) }}" class="btn btn-warning">
+                    <a href="{{ route('admin.project.edit', $project->id) }}" class="btn btn-warning my-1">
                       Aggiorna
                     </a>
 
-                    <a href="#" class="btn btn-danger">
-                      Elimina
-                    </a>
+                    <form
+                    action="{{ route('admin.project.destroy', $project->id) }}" 
+                    method="POST"
+                    onsubmit="return confirm('Sei sicuro di voler eliminare?');"
+                    >
+                      @csrf
+                      @method('DELETE')
+                      <button class="btn btn-danger"> 
+                        Elimina
+                      </button>
+                    </form>
+
                   </div>
                 </td>
             </tr>

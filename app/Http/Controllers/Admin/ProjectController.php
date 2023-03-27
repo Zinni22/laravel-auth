@@ -44,13 +44,19 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        // dd($request->all());
+
+        // prendo i dati validati
         $data = $request->validated();
 
-            $data['slug'] = Str::slug($data['title']);
+        // genero lo slug dal titolo
+        $data['slug'] = Str::slug($data['title']);
 
-            $newProject = Project::create($data);
+        // creo il newPost
+        $newProject = Project::create($data);
 
-            return redirect()->route('admin.show', $newProject)->with('success', 'Progetto aggiunto con successo');
+        // rimando alla pagina show
+        return redirect()->route('admin.project.show', $newProject)->with('success', 'Progetto aggiunto con successo');
     }
 
     /**
@@ -62,7 +68,6 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         return view('admin.show', compact('project'));
-
     }
 
     /**
@@ -73,7 +78,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.edit', compact('project'));
     }
 
     /**
@@ -85,7 +90,17 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        // prendo i dati validati
+        $data = $request->validated();
+
+        // genero lo slug dal titolo
+        $data['slug'] = Str::slug($data['title']);
+
+        // aggiorno il progetto esistente
+        $project->update($data);
+
+        // rimando alla pagina show
+        return redirect()->route('admin.project.show', $project->id)->with('success', 'Progetto aggiornato con successo');
     }
 
     /**
@@ -96,6 +111,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return redirect()->route('admin.project.index')->with('success', 'Progetto eliminato con successo');
     }
 }

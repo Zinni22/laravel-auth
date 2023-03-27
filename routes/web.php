@@ -24,11 +24,7 @@ Route::get('/', function () {
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
-    Route::get('/index', [ProjectController::class, 'index'])->name('index');
-    Route::get('/create', [ProjectController::class, 'create'])->name('create');
-    Route::get('/show', [ProjectController::class, 'show'])->name('show');
-    Route::get('/edit', [ProjectController::class, 'edit'])->name('edit');
-
+    
     Route::resource('project', ProjectController::class);
 });
 
